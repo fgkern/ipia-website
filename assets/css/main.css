@@ -36,28 +36,32 @@ body {
 }
 
 .nav-inner {
-  max-width: 960px;
+  max-width: 1220px;     /* wider so menu fits on one line */
   margin: 0 auto;
   padding: 0.75rem 2rem;
   
   display: flex;
   align-items: center;
   justify-content: space-between; /* menu left, language right */
+  flex-wrap: nowrap;              /* prevent wrapping */
+  gap: 1rem;
 }
 
 /* Menu links */
 .menu {
   list-style: none;
   display: flex;
-  gap: 1.5rem;
+  gap: 1.2rem;          /* tightened spacing */
   margin: 0;
   padding: 0;
+  flex-wrap: nowrap;
 }
 
 .menu a {
   text-decoration: none;
   color: #000000;
   font-weight: 500;
+  font-size: 0.95rem;
 }
 
 .menu a:hover {
@@ -68,9 +72,10 @@ body {
 .nav-lang {
   display: flex;
   gap: 0.6rem;
-  margin-left: 2rem; /* creates separation from menu */
+  margin-left: 2rem; /* spacing away from menu */
 }
 
+/* Logo + title block */
 .logo img {
   height: 64px;
   width: auto;
@@ -111,13 +116,7 @@ body {
   margin-bottom: 1rem;
 }
 
-/* Language buttons */
-.language-switcher {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
+/* Language buttons styling */
 .lang-button {
   display: inline-block;
   padding: 0.55rem 1.1rem;
@@ -163,12 +162,31 @@ body {
   opacity: 0.7;
 }
 
-/* Responsive */
+/* Responsive adjustments */
+@media (max-width: 800px) {
+  .menu {
+    gap: 0.9rem; /* tighter spacing on tablets */
+  }
+
+  .lang-button {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.85rem;
+  }
+}
+
 @media (max-width: 600px) {
-  .header-inner {
-    padding: 1rem 1.25rem;
-    flex-direction: row;
-    align-items: center;
+  .nav-inner {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .menu {
+    flex-wrap: wrap; /* allow wrapping only on mobile */
+    justify-content: center;
+  }
+
+  .nav-lang {
+    justify-content: center;
   }
 
   .site-main {
