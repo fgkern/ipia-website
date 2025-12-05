@@ -263,3 +263,19 @@ body {
     font-size: 1.3rem;
   }
 }
+
+.participants-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.participant h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.05rem;
+}
+
+.participant p {
+  margin: 0 0 0.35rem;
+}
