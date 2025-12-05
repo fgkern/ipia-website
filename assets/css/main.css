@@ -29,30 +29,46 @@ body {
   gap: 1rem;
 }
 
-/* Navigation bar */
+/* Navigation layout */
 .top-nav {
   background-color: #ffffff;
   border-bottom: 1px solid #e5e5e5;
 }
 
-.top-nav ul {
-  margin: 0;
+.nav-inner {
+  max-width: 960px;
+  margin: 0 auto;
   padding: 0.75rem 2rem;
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* menu left, language right */
+}
+
+/* Menu links */
+.menu {
   list-style: none;
   display: flex;
   gap: 1.5rem;
-  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
 }
 
-.top-nav a {
+.menu a {
   text-decoration: none;
   color: #000000;
   font-weight: 500;
-  font-size: 0.95rem;
 }
 
-.top-nav a:hover {
+.menu a:hover {
   text-decoration: underline;
+}
+
+/* Language buttons on nav right */
+.nav-lang {
+  display: flex;
+  gap: 0.6rem;
+  margin-left: 2rem; /* creates separation from menu */
 }
 
 .logo img {
