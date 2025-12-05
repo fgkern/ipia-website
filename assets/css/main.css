@@ -204,6 +204,28 @@ body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+/* Leadership with photos */
+.leader {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+
+.leader-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+/* Better spacing when two-column */
+@media (min-width: 800px) {
+  .leader-photo {
+    width: 100px;
+    height: 100px;
+  }
+}
 
 
 /* Responsive adjustments */
