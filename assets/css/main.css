@@ -41,7 +41,7 @@ body {
   list-style: none;
   display: flex;
   gap: 1.5rem;
-  justify-content: center; /* center menu horizontally */
+  justify-content: flex-start;
 }
 
 .top-nav a {
