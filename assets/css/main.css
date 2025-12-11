@@ -279,3 +279,45 @@ body {
 .participant p {
   margin: 0 0 0.35rem;
 }
+
+/* Participants grid for writing workshop */
+.participants-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.participant-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.participant-photo {
+  width: 70px;
+  height: 70px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.participant-card h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.05rem;
+}
+
+.participant-card p {
+  margin: 0 0 0.35rem;
+}
+
+/* Two columns on larger screens */
+@media (min-width: 900px) {
+  .participants-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .participant-photo {
+    width: 80px;
+    height: 80px;
+  }
+}
+
