@@ -408,3 +408,23 @@ body {
   opacity: 0.9;
 }
 
+/* Events page internal links */
+.events-links {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.events-links a {
+  color: #000000;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.events-links a:hover {
+  text-decoration: none;
+}
+
+.events-separator {
+  margin: 0 0.5rem;
+  opacity: 0.6;
+}
