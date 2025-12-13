@@ -379,3 +379,32 @@ body {
   }
 }
 
+/* IPIA at Conferences */
+.conference-item {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.conference-meta,
+.conference-title,
+.conference-panel {
+  margin: 0 0 0.4rem;
+}
+
+.conference-papers {
+  margin: 0.75rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.conference-papers li {
+  margin-bottom: 0.75rem;
+}
+
+.paper-title {
+  font-weight: 600;
+}
+
+.paper-authors {
+  opacity: 0.9;
+}
+
