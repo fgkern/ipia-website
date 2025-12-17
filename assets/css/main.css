@@ -428,3 +428,22 @@ body {
   margin: 0 0.5rem;
   opacity: 0.6;
 }
+
+/* Leadership page helpers */
+.leader-affil {
+  margin: 0 0 0.35rem;
+}
+
+.leader-contact {
+  margin: 0 0 0.6rem;
+}
+
+.leader-bio {
+  margin: 0.25rem 0 0;
+}
+
+.simple-list {
+  margin: 0.75rem 0 0;
+  padding-left: 1.1rem;
+}
+
