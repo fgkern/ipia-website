@@ -310,11 +310,7 @@ body {
   margin: 0 0 0.35rem;
 }
 
-/* Two columns on larger screens */
 @media (min-width: 900px) {
-  .participants-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
   .participant-photo {
     width: 80px;
     height: 80px;
