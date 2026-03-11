@@ -316,6 +316,11 @@ body {
     height: 80px;
   }
 }
+
+/* Force participants to always display in single column (stacked vertically) */
+.participants-grid {
+  grid-template-columns: 1fr !important;
+}
 /* Events page */
 .events-block {
   margin-top: 1rem;
