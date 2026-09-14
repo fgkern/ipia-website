@@ -1,0 +1,40 @@
+#!/bin/sh
+# Guard against committing on top of a stale clone.
+#
+# `git status` compares against the last-downloaded copy of the remote, so it
+# reports "up to date" even when the clone is far behind GitHub. Editing from
+# that state risks overwriting newer work. Fetch for real, then check.
+#
+# Override for a deliberate offline commit:  SKIP_STALE_CHECK=1 git commit ...
+
+[ -n "$SKIP_STALE_CHECK" ] && exit 0
+
+branch=$(git rev-parse --abbrev-ref HEAD)
+[ "$branch" = "HEAD" ] && exit 0
+
+if ! git fetch --quiet origin "$branch" 2>/dev/null; then
+  echo "note: could not reach GitHub to check for new commits (offline?). Continuing." >&2
+  exit 0
+fi
+
+behind=$(git rev-list --count "HEAD..FETCH_HEAD" 2>/dev/null || echo 0)
+[ "$behind" -eq 0 ] 2>/dev/null && exit 0
+
+cat >&2 <<MSG
+
+  ┌───────────────────────────────────────────────────────────────┐
+  │  STOP: this clone is $behind commit(s) behind GitHub.
+  └───────────────────────────────────────────────────────────────┘
+
+  You may be editing an out-of-date copy of the site, and committing
+  now risks overwriting newer work.
+
+  Bring the clone up to date first:
+
+      git stash && git pull --rebase && git stash pop
+
+  Then re-run your commit.
+  (Deliberate offline commit?  SKIP_STALE_CHECK=1 git commit ...)
+
+MSG
+exit 1

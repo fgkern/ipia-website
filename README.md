@@ -2,12 +2,16 @@
 
 **GitHub repo:** https://github.com/fgkern/ipia-website  
 **GitHub account:** fgkern  
-**Local clone:** `/Users/florian/Dropbox/Claude Code Flo/ipia-website`
+**Local clone:** `/Users/florian/repos/ipia-website`  ← use this one
 
-> **Do not use** `/Users/florian/Dropbox/University of Essex/Admin/IPIA/Website/ipia-website`.
-> That folder looks like a clone and still holds a full set of site files, but Dropbox has
-> emptied its `.git` internals to 0 bytes, so git refuses to open it. Any edits made there
-> cannot be committed or pushed. Treat it as dead and edit only the path above.
+> **Two older copies exist under Dropbox. Do not edit either.**
+>
+> | Path | State |
+> |------|-------|
+> | `Dropbox/University of Essex/Admin/IPIA/Website/ipia-website` | Dead. Dropbox zeroed its `.git` internals, so git cannot open it. Nothing here can be committed or pushed. |
+> | `Dropbox/Claude Code Flo/ipia-website` | Works, but was found 32 commits behind and sits in the same Dropbox hazard. Superseded by `~/repos/ipia-website`. |
+>
+> Once you are happy with `~/repos/ipia-website`, delete both to avoid editing the wrong one.
 
 ## Structure
 
@@ -43,18 +47,33 @@ Language versions are in subdirectories:
 
 2. Edit the relevant root-level file(s) for English content.
 3. Apply the equivalent change to `fr/`, `pt/`, and `sw/` versions.
-4. Commit, then push with a fine-grained personal access token:
+4. Commit and push normally:
 
    ```
-   git push "https://x-access-token:YOUR_TOKEN@github.com/fgkern/ipia-website.git" main
+   git commit -am "your message"
+   git push
    ```
 
-   The `gh` CLI is **not** installed on this machine and the saved macOS keychain credential
-   no longer works ("Invalid username or token"), so a plain `git push` will fail. Generate a
-   token at github.com/settings/tokens with **Contents: read and write** on this repo.
-   Installing `gh` (`brew install gh` then `gh auth login`) would remove the need for tokens.
+   A working token is stored in the macOS keychain, so plain `git push` just works —
+   no token in the command, and no token written into `.git/config`.
 
-5. Changes go live via GitHub Pages a minute or two after the push.
+5. Changes go live via GitHub Pages a minute or two after the push. Verify with
+   `curl -s https://www.internationalpoliticsinafrica.org/events.html | grep ...`,
+   and remember Pages takes a minute to rebuild.
+
+### If a push suddenly fails with "Invalid username or token"
+
+The stored token has expired. **The current one expires 2026-10-14.** Generate a new
+fine-grained token at github.com/settings/tokens with **Contents: read and write** on
+this repo, then re-store it:
+
+```
+printf 'protocol=https\nhost=github.com\n\n' | git credential-osxkeychain erase
+printf 'protocol=https\nhost=github.com\nusername=fgkern\npassword=NEW_TOKEN\n\n' \
+  | git credential-osxkeychain store
+```
+
+The same keychain entry serves `fgkern/future-essex-website`, so this fixes both repos.
 
 ## Events page
 
@@ -67,10 +86,26 @@ Language versions are in subdirectories:
 
 - "English" buttons on all pages must link to root-level pages (e.g. `/events.html`), never to `/en/`.
 
-## A caution about Dropbox
+## The stale-clone guard
 
-This repo lives inside a Dropbox folder. Dropbox and git do not get along: Dropbox syncs the
-hidden `.git` directory file by file, and can corrupt it mid-write. That is exactly what
-happened to the dead clone noted at the top — its `.git/HEAD` and `.git/config` are now empty
-files. If git ever starts reporting "not a git repository" here, that is the likely cause; the
-fix is to re-clone from GitHub, ideally to a location outside Dropbox.
+A `pre-commit` hook in `.githooks/` fetches from GitHub and **blocks the commit** if this
+clone is behind, rather than letting you build on an out-of-date copy. It is enabled with:
+
+```
+git config core.hooksPath .githooks
+```
+
+That setting is per-clone and is **not** carried over by `git clone`, so run it once in any
+fresh clone. If GitHub is unreachable the hook warns and lets the commit through; for a
+deliberate offline commit use `SKIP_STALE_CHECK=1 git commit ...`.
+
+## Why this repo is no longer in Dropbox
+
+Dropbox and git do not get along. Git keeps its bookkeeping in many small files under `.git`,
+and Dropbox syncs them individually, which can catch them mid-write. The old
+`University of Essex/Admin/...` clone died exactly this way — its `.git/HEAD` and
+`.git/config` are now 0 bytes, so git refuses to open it and nothing in it can be pushed.
+
+Keep this repo at `~/repos/ipia-website`, outside any synced folder. If git ever reports
+"not a git repository" in a clone that used to work, this is the likely cause; re-clone
+from GitHub.
