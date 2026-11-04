@@ -63,7 +63,7 @@ Language versions are in subdirectories:
 
 ### If a push suddenly fails with "Invalid username or token"
 
-The stored token has expired. **The current one expires 2026-10-14.** Generate a new
+The stored token has expired. **The current one expires 2026-12-04.** Generate a new
 fine-grained token at github.com/settings/tokens with **Contents: read and write** on
 this repo, then re-store it:
 
