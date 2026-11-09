@@ -109,3 +109,13 @@ and Dropbox syncs them individually, which can catch them mid-write. The old
 Keep this repo at `~/repos/ipia-website`, outside any synced folder. If git ever reports
 "not a git repository" in a clone that used to work, this is the likely cause; re-clone
 from GitHub.
+
+## Hosting (GitHub Pages)
+
+- Served by GitHub Pages, "deploy from branch": `main` / root, custom domain `www.internationalpoliticsinafrica.org` (see `CNAME`). No Actions workflow.
+- **Making the repo private turns Pages off, and making it public again does not turn it back on.** If the site goes down after a visibility change, go to Settings → Pages and set the source to `main` / `(root)` with the custom domain, or run:
+  ```
+  gh api -X POST repos/fgkern/ipia-website/pages -f "source[branch]=main" -f "source[path]=/"
+  gh api -X PUT  repos/fgkern/ipia-website/pages -f cname=www.internationalpoliticsinafrica.org
+  ```
+  (Done on 2026-11-06 after the site went down.)
